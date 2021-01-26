@@ -28,7 +28,7 @@ public class StoreController {
     }
 
     @PostMapping(path = "/createProduct")
-    void createProduct(@ModelAttribute ProductEntity product) {
+    String createProduct(@ModelAttribute ProductEntity product) {
         if (product == null || product.getName() == null) {
             throw new RuntimeException("Name required");
         }
@@ -36,11 +36,14 @@ public class StoreController {
             throw new RuntimeException("Price cannot be negative");
         }
         productEntityCrudRepository.save(product);
+        String output = "Product " + product.getName() + " was successfully created";
+        return output;
+
     }
 
     @GetMapping(path = "/home")
     String home() {
-
+/*
         ProductEntity bottle = new ProductEntity();
         bottle.setName("Best OJ ever");
         bottle.setPrice(33.88F);
@@ -50,7 +53,7 @@ public class StoreController {
         cookie.setName("Best Cookie ever");
         cookie.setPrice(43.48F);
         productEntityCrudRepository.save(cookie);
-
+*/
         Iterable<ProductEntity> products = productEntityCrudRepository.findAll();
 
         String myProducts = "<h2>Our products</h2>";
