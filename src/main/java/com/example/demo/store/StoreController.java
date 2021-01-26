@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StoreController {
 
     @Autowired
-    ProductEntityCrudRepository productEntityCrudRepository;
+    ProductEntityCrudRepository producgtEntityCrudRepository;
 
     @GetMapping(path = "/contact")
     String contact() {
