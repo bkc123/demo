@@ -1,17 +1,16 @@
 package com.example.demo.store;
 
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -112,7 +111,7 @@ public class UserController {
 	@GetMapping(path = "/updateUser", produces = "text/html")
 	String showUpdateForm() {
 		String output = "<form action='' method='POST'>";
-		output += "Search by id: <input name='id' type='Long' /> "
+		output += "update by id: <input name='id' type='Long' /> "
 				+ "<input type='submit' value = 'submit' /> <br />" ;
 		output += "</form>";
 		return output ;
@@ -130,7 +129,7 @@ public class UserController {
 				s += "Id: "+ u.getId() + "<br />Name: "+ u.getName() + "<br />Email: " + u.getEmail();
 				String output = s;
 				output += "<h4>Please enter the following fields to update user </h4>";
-				output += "<form action='updateResult' >";
+				output += "<form action='updateResult', method='GET'>";
 				output += "Name: <input name='name' type='text' /><br />";
 				output += "Email: <input name='email' type='text' /><br />";
 				output += "<input type='submit' />";
@@ -146,9 +145,9 @@ public class UserController {
 	}
 
 
-	@PutMapping(path ="/updateResult")
-	String updateResult(String name, String email) {
-		repo.
+	@GetMapping(path ="/updateResult")
+	String updateResult(@ModelAttribute UserEntity user,String name, String email ) {
+		user.setName(name);
 		user.setEmail(email);
 		repo.save(user);
 		String output = "User " + user.getName() + " was successfully updated" ;
